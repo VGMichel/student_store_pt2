@@ -7,8 +7,8 @@ class User {
   static makePublicUser(user) {
     return {
       id: user.id,
-      email: user.email,
       username: user.username,
+      email: user.email,
       isAdmin: user.is_admin,
       createdAt: user.created_at,
     }
@@ -30,7 +30,7 @@ class User {
       }
     }
 
-    throw new UnauthorizedError("Invalid username/password")
+    throw new UnauthorizedError("Invalid email/password")
   }
 
   static async register(credentials) {
@@ -60,8 +60,8 @@ class User {
 
     const userResult = await db.query(
       `INSERT INTO users (email, password, username, is_admin)
-       VALUES ($1, $2, $3, $4)
-       RETURNING id, email, username, is_admin, created_at;
+       VALUES ($1, $2, $3)
+       RETURNING id, email, is_admin, created_at;
       `,
       [normalizedEmail, hashedPassword, credentials.username, credentials.isAdmin]
     )

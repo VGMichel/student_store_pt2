@@ -6,6 +6,7 @@ const generateToken = (data) => jwt.sign(data, SECRET_KEY, { expiresIn: "24h" })
 const createUserJwt = (user) => {
     const payload = {
         email: user.email,
+        username: user.username,
         isAdmin: user.isAdmin || false
     }
 }
@@ -18,7 +19,7 @@ const validateToken = (token) => {
     }
 }
 
-modules.exports = {
+module.exports = {
     generateToken,
     createUserJwt,
     validateToken,
